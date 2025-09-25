@@ -1,0 +1,250 @@
+/* Main Container */
+.courses-container {
+    padding: 2.5rem;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f7f7f7;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Section */
+.courses-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.courses-header h1 {
+    font-size: 2rem;
+    color: #111213;
+    margin: 0;
+}
+
+.add-course {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.add-course:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Search Bar */
+.search-bar {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar input {
+    width: 100%;
+    max-width: 600px;
+    padding: 0.85rem;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    color: #555;
+    outline: none;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.search-bar input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.search-bar input:focus {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-color: #007bff;
+}
+
+/* Courses List */
+.courses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.course-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.8rem;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.course-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    background-color: #f0f8ff;
+}
+
+.course-details {
+    flex: 1;
+}
+
+.course-code {
+    font-weight: bold;
+    color: #333;
+}
+
+.course-name {
+    color: #555;
+}
+
+.course-status {
+    color: #777;
+}
+
+/* Action Buttons */
+.course-actions button {
+    margin-left: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 40px;
+    width: 100px;
+    text-align: center;
+}
+
+.course-actions .edit {
+    background-color: #007bff;
+    color: white;
+}
+
+.course-actions .edit:hover {
+    background-color: #0056b3;
+}
+
+.course-actions .delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.course-actions .delete:hover {
+    background-color: #c82333;
+}
+
+/* Error Message */
+.message-error-edit {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.cancel {
+    background-color: #6c757d;
+    color: white;
+    border-radius: 20px;
+}
+
+.cancel:hover {
+    background-color: #545b62;
+}
+
+.save {
+    background-color: #007bff;
+    color: white;
+    border-radius: 20px;
+}
+
+.save:hover {
+    background-color: #0056b3;
+}
+
+/* Delete Confirmation Button */
+.delete-confirm {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-confirm:hover {
+    background-color: #c82333;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
+}
+
+.page-button {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.page-button:hover {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.1);
+}
+
+.page-button.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}

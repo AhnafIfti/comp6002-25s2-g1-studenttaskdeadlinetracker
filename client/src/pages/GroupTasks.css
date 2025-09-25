@@ -1,0 +1,67 @@
+.group-tasks-page {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  .group-tasks-page h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .group-task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .group-task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .group-task-info {
+    flex: 1;
+  }
+  
+  .group-task-title {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  .group-task-due-date {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .group-task-status {
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
+  .group-task-status.in-progress {
+    background-color: #ffeb3b;
+    color: #333;
+  }
+  
+  .group-task-status.not-started {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .group-task-status.completed {
+    background-color: #4caf50;
+    color: #fff;
+  }

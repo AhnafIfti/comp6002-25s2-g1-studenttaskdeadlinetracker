@@ -1,0 +1,157 @@
+/* Calendar container */
+.modern-calendar-container {
+    width: 80vw; /* Reduce width to 80% of the screen */
+    height: 90vh; /* Increase height to ensure uniform grid size */
+    margin: auto; /* Center the calendar */
+    padding: 20px; /* Add padding */
+    background: #fafafa;
+    border-radius: 12px; /* Add rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    color: #000 !important; /* Black text inside the container */
+}
+
+/* Remove card-like background */
+.custom-calendar {
+    width: 100% !important; /* Full container width */
+    height: auto !important; /* Adjust height automatically */
+    border: none !important;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    color: #000 !important; /* Global black text */
+}
+
+/* Calendar navigation */
+.react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #000 !important;
+}
+.react-calendar__navigation button {
+    color: #000 !important; /* Black text */
+    font-size: 1rem;
+    font-weight: 600;
+    min-width: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.react-calendar__navigation button:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Weekday labels */
+.react-calendar__month-view__weekdays {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: #d9e8ff; /* Light blue background */
+    color: #000 !important; /* Black text for weekday labels */
+}
+.react-calendar__month-view__weekdays__weekday {
+    padding: 10px 0;
+    border: 1px solid #ccc;
+    color: #000 !important; /* Black text for each weekday */
+}
+
+/* Date tiles: light blue blocks */
+.react-calendar__tile {
+    background: #eaf3ff !important; /* Blue background */
+    height: 120px !important; /* Ensure consistent tile height */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1rem;
+    padding: 12px 6px;
+    position: relative;
+    transition: background 0.2s;
+    border-radius: 0 !important;
+    color: #000 !important; /* Black text for date tiles */
+}
+.react-calendar__tile:enabled:hover {
+    background-color: #cfe1ff; /* Darker blue on hover */
+    cursor: pointer;
+    color: #000 !important; /* Black text on hover */
+}
+
+/* Today */
+.react-calendar__tile--now {
+    background: #bcd4ff !important; /* Slightly darker blue */
+    font-weight: bold;
+    border: 2px solid #2a5d9f !important;
+    color: #000 !important; /* Black text for today */
+}
+
+/* Selected date */
+.react-calendar__tile--active {
+    background: #2a5d9f !important;
+    color: #fff !important; /* Keep contrast for selected date */
+}
+
+/* Task items */
+.tile-content {
+    position: absolute; /* Position relative to the tile */
+    top: 5px; /* Align to the top */
+    right: 5px; /* Align to the right */
+    display: flex;
+    flex-direction: column;
+    gap: 2px; /* Reduce spacing between tasks */
+}
+
+.task-item {
+    background: #ffffff;
+    color: #000 !important; /* Black text */
+    font-size: 0.7rem;
+    padding: 2px 4px;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid #ccc;
+    color: #000 !important; /* Black text for task items */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.task-item:hover {
+    background: #f2f2f2;
+}
+
+/* Modal overlay */
+.modal-overlay {
+    position: fixed; /* Fixed position to cover the entire screen */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full screen width */
+    height: 100vh; /* Full screen height */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it is above the calendar */
+    padding: 20px;
+}
+
+.modal-close-button {
+    position: absolute; /* Position relative to the modal content */
+    top: 10px; /* Align to the top */
+    right: 10px; /* Align to the right */
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.modal-close-button:hover {
+    color: #2a5d9f; /* Change color on hover */
+}

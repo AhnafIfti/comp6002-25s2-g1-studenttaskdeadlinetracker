@@ -1,0 +1,140 @@
+/* Main form container */
+.new-task-form {
+  width: 100%;
+  max-width: 700px;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: 'Roboto', Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Form group container */
+.form-group {
+  margin-bottom: 16px;
+  width: 100%;
+  position: relative;
+}
+
+/* Form labels */
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Required field indicator */
+.required {
+  color: #e74c3c;
+}
+
+/* Base styles for form inputs */
+input, select, textarea {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Placeholder text color */
+input::placeholder, textarea::placeholder {
+  color: #999;
+}
+
+/* Focus states for form elements */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+  background-color: #ffffff;
+  box-shadow: 0 0 4px rgba(0, 102, 204, 0.3);
+}
+
+/* Form action buttons container */
+.form-actions {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  background-color: #f9f9f9;
+}
+
+/* Cancel button styling */
+.add-cancel-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #e0e0e0;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Save button styling */
+.add-submit-button {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Button hover states */
+.add-cancel-button:hover {
+  background-color: #d6d6d6;
+}
+
+.add-submit-button:hover {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Button active states */
+.add-cancel-button:active, .submit-button:active {
+  transform: scale(0.98);
+} 
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.success-animation {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50; /* Success green */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  animation: fadeInOut 3s ease-in-out; /* 3s animation */
+}

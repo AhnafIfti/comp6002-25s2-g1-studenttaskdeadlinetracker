@@ -1,0 +1,482 @@
+/* Page container */
+.tasks-page {
+  display: flex;
+  gap: 24px; /* Add spacing */
+  padding: 24px; /* Add padding */
+  font-family: 'Roboto', Arial, sans-serif; /* Modern font */
+  background-color: #f7f9fc; /* Softer background color */
+  min-height: 100vh;
+}
+
+/* Left section: Task list */
+.tasks-list {
+  flex: 3; /* 60% width */
+  background-color: #ffffff; /* White background */
+  border-radius: 16px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Page title */
+.tasks-list h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333; /* Darker text color */
+}
+
+/* Navigation Tabs */
+.tasks-tabs {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Add spacing between tabs */
+  margin-bottom: 20px;
+}
+
+.tasks-tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 24px; /* Rounded buttons */
+  background-color: #eaf4ff; /* Softer background color */
+  color: #007bff; /* Blue text */
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth interaction effects */
+}
+
+.tasks-tabs button.active {
+  background-color: #007bff; /* Blue background */
+  color: #ffffff; /* White text */
+}
+
+.tasks-tabs button:hover {
+  background-color: #0056b3; /* Darker blue background */
+  color: #ffffff;
+}
+
+/* Tasks section */
+.tasks-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Add spacing between tasks */
+}
+
+/* Task card */
+.task-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 16px; /* Rounded corners */
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth interaction effects */
+}
+
+.task-card:hover {
+  background-color: #f0f8ff; /* Light blue background */
+}
+
+.task-card.selected {
+  background-color: #e6f7ff; /* Softer selected background */
+  border-color: #007bff; /* Blue border */
+}
+
+/* Task title */
+.task-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 10px;
+  color: #333; /* Darker text color */
+}
+
+/* Task due date */
+.task-due-date {
+  font-size: 14px;
+  color: #666; /* Lighter text color */
+  margin-bottom: 10px;
+}
+
+/* Right section: Task view */
+.task-view {
+  flex: 2; /* 40% width */
+  background-color: #ffffff; /* White background */
+  border-radius: 16px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.task-view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.task-view-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Unified styles for top-right icons */
+.task-view-actions button {
+  background: none;
+  border: none;
+  font-size: 20px; /* Unified icon size */
+  cursor: pointer;
+  color: #333; /* Default color */
+  transition: color 0.3s ease, transform 0.2s ease, background-color 0.3s ease; /* Smooth interaction effects */
+  padding: 5px; /* Increase click area */
+  border-radius: 50%; /* Circular background */
+  display: flex; /* Use flex layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 40px; /* Set uniform height */
+  width: 40px; /* Set uniform width */
+  background-color: #f7f9fc; /* Light gray background */
+}
+
+.task-view-actions button:hover {
+  color: #007bff; /* Hover color */
+  transform: scale(1.1); /* Hover scaling effect */
+  background-color: #eaf4ff; /* Light blue background */
+}
+
+.task-view-actions .delete-button:hover {
+  color: #dc3545; /* Red hover color for delete button */
+  background-color: rgba(220, 53, 69, 0.1); /* Red hover background */
+}
+
+.task-view-actions .edit-button:hover {
+  color: #28a745; /* Green hover color for edit button */
+  background-color: rgba(40, 167, 69, 0.1); /* Green hover background */
+}
+
+/* Align icons */
+.task-view-actions {
+  display: flex;
+  gap: 10px; /* Spacing between icons */
+  justify-content: flex-end; /* Right align */
+  align-items: center;
+  height: 40px;
+  position: relative;
+}
+
+.task-view-date,
+.task-view-course,
+.task-view-status,
+.task-view-description {
+  font-size: 16px;
+  color: #333;
+  margin: 10px 0;
+}
+
+.task-view-description strong {
+  font-weight: bold;
+}
+
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative; /* Ensure close button is positioned relative to modal content */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 300px;
+}
+
+.modal-content .close-button {
+  position: absolute; /* Absolute positioning */
+  top: 10px; /* 10px from the top of the modal */
+  right: 10px; /* 10px from the right of the modal */
+  background: none; /* No background */
+  border: none; /* No border */
+  font-size: 20px; /* Font size */
+  font-weight: bold; /* Bold font */
+  cursor: pointer; /* Pointer cursor on hover */
+  color: #333; /* Default color */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.modal-content .close-button:hover {
+  color: #007bff; /* Blue color on hover */
+}
+
+.modal-content h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Modal footer */
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cancel {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel:hover {
+  background-color: #5a6268; /* Darker hover color */
+}
+
+.delete-confirm {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-confirm:hover {
+  background-color: #c82333; /* Darker hover color */
+}
+
+/* Status update section */
+.status-update {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.status-update label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.status-update select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.status-update select:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none;
+}
+
+/* Update status button */
+.update-status-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.update-status-button:hover {
+  background-color: #0056b3; /* Darker blue hover color */
+}
+
+/* Delete button */
+.task-delete-button {
+  position: relative;;
+}
+
+/* Edit button */
+.edit-button {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: -1px !important;
+  position: relative;
+}
+
+/* Edit task overlay */
+.edit-task-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Edit task form */
+.edit-task-form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative; /* Ensure close button is positioned relative to the form */
+}
+
+/* Close button for edit task form */
+.edit-task-form .close-button {
+  position: absolute; /* Position relative to the form */
+  top: 10px; /* 10px from the top of the form */
+  right: 10px; /* 10px from the right of the form */
+  background: none; /* No background */
+  border: none; /* No border */
+  font-size: 20px; /* Font size */
+  font-weight: bold; /* Bold font */
+  cursor: pointer; /* Pointer cursor on hover */
+  color: #333; /* Default color */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.edit-task-form .close-button:hover {
+  color: #007bff; /* Blue color on hover */
+}
+
+.save-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #0056b3; /* Darker blue hover color */
+}
+
+.edit-task-form label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.edit-task-form input,
+.edit-task-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.edit-task-form textarea {
+  resize: vertical; /* Allow vertical resizing */
+}
+
+/* Tasks header */
+.tasks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tasks-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Course filter */
+.course-filter {
+  width: 150px; /* Adjust width */
+  height: 30px; /* Adjust height */
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-left: 10px; /* Maintain some distance from the title */
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .tasks-page {
+    flex-direction: column; /* Stack sections vertically */
+  }
+
+  .tasks-list {
+    max-width: 100%; /* Full width */
+  }
+
+  .task-view {
+    max-width: 100%; /* Full width */
+  }
+}
+
+/* Delete success message */
+.delete-success-message {
+  position: fixed;
+  top: 20px;
+  right: 5px;
+  transform: translateX(-50%);
+  background-color: #28a745; /* Green background */
+  color: #ffffff; /* White text */
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  z-index: 1000;
+  animation: fadeOut 3s forwards; /* Fade out animation */
+}
+
+/* Fade out animation */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
