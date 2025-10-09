@@ -1,5 +1,5 @@
 # Node dependencies
-node_modules/
+**/node_modules
 
 # Build output (compiled JS)
 dist/
@@ -33,3 +33,5 @@ Thumbs.db
 coverage/
 .tmp/
 
+# ignore workspace folder
+*.code-workspace
