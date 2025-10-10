@@ -3,7 +3,7 @@
   display: flex;
   gap: 24px; /* Add spacing */
   padding: 24px; /* Add padding */
-  font-family: 'Roboto', Arial, sans-serif; /* Modern font */
+  font-family: "Roboto", Arial, sans-serif; /* Modern font */
   background-color: #f7f9fc; /* Softer background color */
   min-height: 100vh;
 }
@@ -316,7 +316,7 @@
 
 /* Delete button */
 .task-delete-button {
-  position: relative;;
+  position: relative;
 }
 
 /* Edit button */
@@ -424,7 +424,7 @@
 
 /* Course filter */
 .course-filter {
-  width: 150px; /* Adjust width */
+  width: 500px; /* Adjust width */
   height: 30px; /* Adjust height */
   font-size: 14px;
   border: 1px solid #ccc;
