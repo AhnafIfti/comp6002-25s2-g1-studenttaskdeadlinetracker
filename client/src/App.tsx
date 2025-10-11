@@ -24,6 +24,13 @@ import TaskCalendar from "./pages/Calendar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// ...existing code...
+
+// added group components
+import GroupList from "./components/group/UserGroupList";
+import GroupDetail from "./components/group/GroupDetail";
+import GroupForm from "./components/group/GroupForm";
+
 // Helper component for active link styling
 const SidebarNavLink: React.FC<{ to: string; children: React.ReactNode }> = ({
   to,
@@ -130,8 +137,9 @@ const AppContent: React.FC = () => {
               <ul className="sidebar-links">
                 <SidebarNavLink to="/dashboard">Dashboard</SidebarNavLink>
                 <SidebarNavLink to="/courses">Courses</SidebarNavLink>
-                <SidebarNavLink to="/tasks">Task</SidebarNavLink>
                 <SidebarNavLink to="/deadline">Deadline</SidebarNavLink>
+                <SidebarNavLink to="/tasks">Tasks</SidebarNavLink>
+                <SidebarNavLink to="/groups">Groups</SidebarNavLink>
                 <SidebarNavLink to="/group-tasks">Group Tasks</SidebarNavLink>
                 <SidebarNavLink to="/analytics">Analytics</SidebarNavLink>
                 <SidebarNavLink to="/calendar">Calendar</SidebarNavLink>
@@ -201,6 +209,25 @@ const AppContent: React.FC = () => {
             path="/courses"
             element={isAuthenticated ? <Course /> : <Navigate to="/login" />}
           />
+          <Route
+            path="/groups"
+            element={isAuthenticated ? <GroupList /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/groups/new"
+            element={isAuthenticated ? <GroupForm /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/groups/:id"
+            element={
+              isAuthenticated ? <GroupDetail /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="/groups/:id/edit"
+            element={isAuthenticated ? <GroupForm /> : <Navigate to="/login" />}
+          />
+
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </main>
