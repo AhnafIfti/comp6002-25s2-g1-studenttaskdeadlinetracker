@@ -15,7 +15,7 @@ This project is a **Student Task Deadline Tracker** application built using **Re
 - **React**: Frontend library for building user interfaces.
 - **TypeScript**: Strongly typed JavaScript for better code quality.
 - **Vite**: Fast build tool for modern web projects.
-- **CSS/SCSS**: Styling for the application.
+- **CSS**: Styling for the application.
 
 ### Server
 - **Node.js**: Backend runtime environment.
@@ -74,24 +74,28 @@ This project is a **Student Task Deadline Tracker** application built using **Re
 
 ### Client
 - `npm run dev`: Start the development server.
-- `npm run build`: Build the production-ready app.
-- `npm run preview`: Preview the production build.
 
 ### Server
 - `npm run dev`: Start the development server with hot reload.
-- `npm run start`: Start the production server.
+
 
 ## Folder Structure
 
 ```
-comp6002-25s2-g1-studenttaskdeadlinetracker-feature-task-model/
+comp6002-25s2-g1-studenttaskdeadlinetracker/
 ├── client/               # Frontend code
 │   ├── src/              # React components and logic
 │   ├── public/           # Static assets
-│   └── README.md         # Client README
 ├── server/               # Backend code
 │   ├── src/              # Express controllers, models, and routes
+│   │   ├── controllers/  # API controllers
+│   │   ├── models/       # Mongoose models
+│   │   ├── routes/       # API routes
+│   │   ├── middleware/   # Custom middleware for authentication, error handling, etc.
+│   │   └── index.ts      # Entry point for the server application
 │   └── README.md         # Server README
+├── .env                  # Example environment variables
+├── package.json          # Project metadata and dependencies
 └── README.md             # Main project README
 ```
 
