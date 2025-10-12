@@ -102,6 +102,7 @@ comp6002-25s2-g1-studenttaskdeadlinetracker/
 ## Contributing
 
 1. Fork the repository.
+
 2. Create a new branch:
    ```bash
    git checkout -b feature-name
@@ -110,10 +111,12 @@ comp6002-25s2-g1-studenttaskdeadlinetracker/
    ```bash
    git commit -m "Add feature description"
    ```
+
 4. Push to the branch:
    ```bash
    git push origin feature-name
    ```
+   
 5. Open a pull request.
 
 ## License
