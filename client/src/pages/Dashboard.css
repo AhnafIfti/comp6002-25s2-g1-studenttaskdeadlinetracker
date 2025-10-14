@@ -18,7 +18,7 @@
     background: linear-gradient(to right, #a1c4fd, #c2e9fb);
     border-radius: 20px; /* Larger rounded corners */
     padding: 40px; /* Increase padding for larger header */
-    color: white;
+    color: rgb(49, 15, 185);
 }
 
 .time-section h1 {

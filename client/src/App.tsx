@@ -266,8 +266,10 @@ const App: React.FC = () => {
   return (
     <Router>
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        <ToastContainer />
-        <AppContent />
+        <SocketProvider>
+          <ToastContainer />
+          <AppContent />
+        </SocketProvider>
       </GoogleOAuthProvider>
     </Router>
   );

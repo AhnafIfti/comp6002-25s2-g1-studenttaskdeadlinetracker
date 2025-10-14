@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import NotificationBell from "../components/NotificationBell";
+
 import './Dashboard.css';
 
 interface Task {
@@ -134,6 +136,8 @@ const Dashboard: React.FC = () => {
           <h2>{getGreeting()}</h2>
           <p>You have {todayTasks.length} tasks due today.</p>
         </div>
+          {/* Add Notification Bell here */}
+  <NotificationBell />
       </div>
 
       {/* Upcoming Section */}

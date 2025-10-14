@@ -424,7 +424,7 @@
 
 /* Course filter */
 .course-filter {
-  width: 500px; /* Adjust width */
+  width: 150px; /* Adjust width */
   height: 30px; /* Adjust height */
   font-size: 14px;
   border: 1px solid #ccc;
