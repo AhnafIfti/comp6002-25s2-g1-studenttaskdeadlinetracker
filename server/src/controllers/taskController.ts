@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import Task from "../model/task";
 import Course from "../model/course";
 import mongoose from "mongoose";
+import Group from "../model/group";
+import User from "../model/user";
+import Subtask from "../model/subtask";
 
 interface AuthenticatedRequest extends Request {
   user?: { id: string; email: string };
@@ -10,7 +13,16 @@ interface AuthenticatedRequest extends Request {
 // Add Task Controller
 export const addTask = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
-    const { title, description, dueDate, dueTime, groupstatus, courseId, sharedWith } = req.body;
+    const {
+      title,
+      description,
+      dueDate,
+      dueTime,
+      groupstatus,
+      courseId,
+      sharedWith,
+      groupId,
+    } = req.body;
 
     const userId = req.user?.id;
 
@@ -34,6 +46,7 @@ export const addTask = async (req: AuthenticatedRequest, res: Response): Promise
       groupstatus,
       courseId,
       userId,
+      groupId,
       sharedWith,
     });
 
@@ -141,18 +154,22 @@ export const getTaskById = async (req: Request, res: Response): Promise<void> =>
     const { id } = req.params;
 
     const task = await Task.findById(id).populate({
-      path: 'courseId',
-      select: 'code',
+      path: "courseId",
+      select: "code",
     });
 
     if (!task) {
-      res.status(404).json({ error: 'Task not found' });
+      res.status(404).json({ error: "Task not found" });
       return;
     }
 
+    // fetch subtasks for this task and populate assignee + creator
+    const subtasks = await Subtask.find({ parentTask: id });
+
     res.status(200).json({
       ...task.toObject(),
-      courseCode:  (task.courseId as any)?.code || null,
+      courseCode: (task.courseId as any)?.code || null,
+      subtasks,
     });
   } catch (error) {
     console.error('Error fetching task by ID:', error);
@@ -231,16 +248,44 @@ export const updateTask = async (req: AuthenticatedRequest, res: Response): Prom
 export const getTaskByDueDate = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const userId = req.user?.id;
-    const { dueDate } = req.query; 
+    const dueDateParam = req.query.dueDate as string | undefined;
 
-    if (!dueDate) {
+    if (!dueDateParam) {
       res.status(400).json({ error: "Due date is required." });
       return;
     }
 
+    if (!userId) {
+      res.status(401).json({ error: "Unauthorized. User ID is required." });
+      return;
+    }
+
+    // Accept "YYYY-MM-DD" from UI or full ISO datetime.
+    // Build UTC range for that calendar day to match stored ISO datetimes.
+    let startOfDay: Date;
+    let endOfDay: Date;
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dueDateParam)) {
+      // date-only string -> interpret as UTC day
+      startOfDay = new Date(`${dueDateParam}T00:00:00.000Z`);
+      endOfDay = new Date(`${dueDateParam}T23:59:59.999Z`);
+    } else {
+      const parsed = new Date(dueDateParam);
+      if (isNaN(parsed.getTime())) {
+        res.status(400).json({ error: "Invalid dueDate format." });
+        return;
+      }
+      // use the UTC calendar day of parsed date
+      const y = parsed.getUTCFullYear();
+      const m = parsed.getUTCMonth();
+      const d = parsed.getUTCDate();
+      startOfDay = new Date(Date.UTC(y, m, d, 0, 0, 0, 0));
+      endOfDay = new Date(Date.UTC(y, m, d, 23, 59, 59, 999));
+    }
+
     const tasks = await Task.find({
       userId,
-      dueDate,
+      dueDate: { $gte: startOfDay, $lte: endOfDay },
     }).populate({
       path: "courseId",
       select: "code",
@@ -483,3 +528,69 @@ export const getTaskCompletionRates = async (req: AuthenticatedRequest, res: Res
   }
 };
 
+export const getAllowedAssignees = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { taskId } = req.params;
+    if (!taskId) {
+      res.status(400).json({ message: "taskId is required" });
+      return;
+    }
+
+    const task = await Task.findById(taskId).lean();
+    if (!task) {
+      res.status(404).json({ message: "Parent task not found" });
+      return;
+    }
+
+    // requester id from auth middleware if available
+    const requesterId = (req as any).user?.id; // keep compatible with your Auth middleware
+
+    if (task.groupstatus === "individual") {
+      // only the requester allowed (or fallback to task owner)
+      const targetId = requesterId || task.userId;
+      const user = await User.findById(targetId)
+        .select("_id name email")
+        .lean();
+      res.json(user ? [user] : []);
+      return;
+    }
+
+    // group task -> gather members from group or sharedWith
+    let memberIds: any[] = [];
+
+    if (task.groupId) {
+      const group = await Group.findById(task.groupId).lean();
+      if (group && Array.isArray(group.members))
+        memberIds = group.members.map((m: any) => m.toString());
+    }
+
+    if (
+      (!memberIds || memberIds.length === 0) &&
+      Array.isArray(task.sharedWith)
+    ) {
+      memberIds = task.sharedWith.map((m: any) => m.toString());
+    }
+
+    // ensure requester is included
+    if (requesterId && !memberIds.includes(String(requesterId))) {
+      memberIds.push(String(requesterId));
+    }
+
+    // fallback: include task owner if still empty
+    if (memberIds.length === 0 && task.userId) {
+      memberIds = [String(task.userId)];
+    }
+
+    const users = await User.find({ _id: { $in: memberIds } })
+      .select("_id name email")
+      .lean();
+
+    res.json(users || []);
+  } catch (err) {
+    console.error("Error getting allowed assignees:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

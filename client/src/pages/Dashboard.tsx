@@ -25,41 +25,44 @@ const Dashboard: React.FC = () => {
   const getGreeting = () => {
     const currentHour = new Date().getHours();
     if (currentHour < 12) {
-      return 'Good Morning!';
+      return "Good Morning!";
     } else if (currentHour < 18) {
-      return 'Good Afternoon!';
+      return "Good Afternoon!";
     } else {
-      return 'Good Evening!';
+      return "Good Evening!";
     }
   };
 
   // get today's tasks
   const fetchTodayTasks = async () => {
     try {
-      const today = new Date().toISOString().split('T')[0];
-      const response = await fetch(`http://localhost:5000/api/tasks/by-due-date?dueDate=${today}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const today = new Date().toISOString().split("T")[0];
+      const response = await fetch(
+        `http://localhost:5000/api/tasks/by-due-date?dueDate=${today}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
         setTodayTasks(data);
       } else {
-        console.error('Failed to fetch today\'s tasks');
+        console.error("Failed to fetch today's tasks");
       }
     } catch (error) {
-      console.error('Error fetching today\'s tasks:', error);
+      console.error("Error fetching today's tasks:", error);
     }
   };
 
   // get upcoming tasks
   const fetchUpcomingTasks = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/tasks/by-week', {
+      const response = await fetch("http://localhost:5000/api/tasks/by-week", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
@@ -67,10 +70,10 @@ const Dashboard: React.FC = () => {
         const data = await response.json();
         setUpcomingTasks(data);
       } else {
-        console.error('Failed to fetch upcoming tasks');
+        console.error("Failed to fetch upcoming tasks");
       }
     } catch (error) {
-      console.error('Error fetching upcoming tasks:', error);
+      console.error("Error fetching upcoming tasks:", error);
     }
   };
 
@@ -91,26 +94,29 @@ const Dashboard: React.FC = () => {
     if (!selectedTask || !newStatus) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/tasks/update-status`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify({ taskId: selectedTask._id, status: newStatus }),
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/tasks/update-status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ taskId: selectedTask._id, status: newStatus }),
+        }
+      );
 
       if (response.ok) {
-        setCustomMessage('Status updated!');
+        setCustomMessage("Status updated!");
         setTimeout(() => setCustomMessage(null), 2000);
         closeTaskDetails();
       } else {
-        setCustomMessage('Update failed!');
+        setCustomMessage("Update failed!");
         setTimeout(() => setCustomMessage(null), 2000);
       }
     } catch (error) {
-      console.error('Error updating task status:', error);
-      setCustomMessage('Error occurred!');
+      console.error("Error updating task status:", error);
+      setCustomMessage("Error occurred!");
       setTimeout(() => setCustomMessage(null), 2000);
     }
   };
@@ -123,13 +129,16 @@ const Dashboard: React.FC = () => {
   return (
     <div className="dashboard-container">
       {/* Custom Message */}
-      {customMessage && (
-        <div className="custom-message">{customMessage}</div>
-      )}
+      {customMessage && <div className="custom-message">{customMessage}</div>}
       {/* Header Section */}
       <div className="dashboard-header">
         <div className="time-section">
-          <h1>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</h1>
+          <h1>
+            {new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </h1>
           <p>{new Date().toLocaleDateString()}</p>
         </div>
         <div className="greeting-section">
@@ -151,10 +160,14 @@ const Dashboard: React.FC = () => {
               {todayTasks.map((task) => (
                 <li
                   key={task._id}
-                  onClick={() => setSelectedTask({ ...task, _id: task._id || task._id })} // 确保 id 或 _id 被正确设置// 点击任务时设置选中的任务
+                  onClick={() =>
+                    setSelectedTask({ ...task, _id: task._id || task._id })
+                  } // 确保 id 或 _id 被正确设置// 点击任务时设置选中的任务
                   className="task-item"
                 >
-                  <strong>{task.title}</strong> - Due: {new Date(task.dueDate).toLocaleDateString()} {task.dueTime || 'All day'}
+                  <strong>{task.title}</strong> - Due:{" "}
+                  {new Date(task.dueDate).toLocaleDateString()}{" "}
+                  {task.dueTime || "All day"}
                 </li>
               ))}
             </ul>
@@ -174,7 +187,9 @@ const Dashboard: React.FC = () => {
                   onClick={() => setSelectedTask(task)}
                   className="task-item"
                 >
-                  <strong>{task.title}</strong> - Due: {new Date(task.dueDate).toLocaleDateString()} {task.dueTime || 'All day'}
+                  <strong>{task.title}</strong> - Due:{" "}
+                  {new Date(task.dueDate).toLocaleDateString()}{" "}
+                  {task.dueTime || "All day"}
                 </li>
               ))}
             </ul>
@@ -188,13 +203,26 @@ const Dashboard: React.FC = () => {
       {selectedTask && (
         <div className="task-details-overlay">
           <div className="task-details">
-            <button className="close-button" onClick={closeTaskDetails}>✖</button>
+            <button className="close-button" onClick={closeTaskDetails}>
+              ✖
+            </button>
             <h1>{selectedTask.title}</h1>
-            <p><strong>Description:</strong> {selectedTask.description}</p>
-            <p><strong>Due Date:</strong> {new Date(selectedTask.dueDate).toLocaleDateString()}</p>
-            <p><strong>Due Time:</strong> {selectedTask.dueTime || 'All day'}</p>
-            <p><strong>Status:</strong> {selectedTask.status}</p>
-            <p><strong>Course Code:</strong> {selectedTask.courseCode}</p>
+            <p>
+              <strong>Description:</strong> {selectedTask.description}
+            </p>
+            <p>
+              <strong>Due Date:</strong>{" "}
+              {new Date(selectedTask.dueDate).toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Due Time:</strong> {selectedTask.dueTime || "All day"}
+            </p>
+            <p>
+              <strong>Status:</strong> {selectedTask.status}
+            </p>
+            <p>
+              <strong>Course Code:</strong> {selectedTask.courseCode}
+            </p>
 
             {/* Status Update Component */}
             <div className="status-update">
@@ -210,7 +238,10 @@ const Dashboard: React.FC = () => {
                 <option value="completed">Completed</option>
                 <option value="overdue">Overdue</option>
               </select>
-              <button className="update-status-button" onClick={handleUpdateStatus}>
+              <button
+                className="update-status-button"
+                onClick={handleUpdateStatus}
+              >
                 Update Status
               </button>
             </div>

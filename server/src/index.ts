@@ -9,6 +9,7 @@ import groupRoutes from "./routes/userGroupRoute";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import startNotificationScheduler from "./utils/notificationScheduler";
+import subtaskRoutes from "./routes/subTaskRoute";
 
 dotenv.config(); // Load environment variables from .env
 
@@ -42,6 +43,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use("/api/groups", groupRoutes);
+app.use("/api", subtaskRoutes);
 
 // 🧩 Socket.IO unified connection handler
 io.on("connection", (socket) => {
@@ -98,6 +100,7 @@ app.post("/test-alert", (req, res) => {
 
 // 🕒 Start automatic notification scheduler
 startNotificationScheduler(io, connectedUsers);
+
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {

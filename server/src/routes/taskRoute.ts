@@ -12,7 +12,8 @@ import {
     getTaskStatusStats,
     getTaskStatsByCourse,
     getTaskStatsByTime,
-    getTaskCompletionRates
+    getTaskCompletionRates,
+    getAllowedAssignees
     } from "../controllers/taskController";
 import { authenticate } from "../middleware/authMiddleware";
 
@@ -49,5 +50,7 @@ router.get("/:id", authenticate, getTaskById);
 router.delete("/:id", authenticate, deleteTask);
 
 router.put("/:id", authenticate, updateTask);
+
+router.get("/:taskId/assignees", getAllowedAssignees);
 
 export default router;

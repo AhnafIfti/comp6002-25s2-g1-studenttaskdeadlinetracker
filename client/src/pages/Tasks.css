@@ -57,6 +57,11 @@
   color: #ffffff;
 }
 
+.add-deadline-button {
+  border: none;
+  border-radius: 25px;
+}
+
 /* Tasks section */
 .tasks-section {
   display: flex;
@@ -424,7 +429,7 @@
 
 /* Course filter */
 .course-filter {
-  width: 150px; /* Adjust width */
+  width: 500px; /* Adjust width */
   height: 30px; /* Adjust height */
   font-size: 14px;
   border: 1px solid #ccc;

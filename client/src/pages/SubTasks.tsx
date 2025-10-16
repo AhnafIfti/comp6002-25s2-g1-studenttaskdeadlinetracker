@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify"; // Reintroduce toast for validation
 import "react-toastify/dist/ReactToastify.css";
 import "./Tasks.css";
+import AddTaskForm from "../components/AddTaskForm";
+import AddSubTaskForm from "../components/AddSubTaskForm";
 
 interface Task {
   _id: string;
@@ -13,6 +15,19 @@ interface Task {
   status: string;
   courseCode: string;
   groupstatus: string;
+  subtasks: Subtask[];
+}
+
+export interface Subtask {
+  _id: string;
+  title: string;
+  description?: string;
+  dueDate?: string;
+  dueTime?: string;
+  status?: string;
+  parentTaskId?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 interface Course {
@@ -23,6 +38,7 @@ interface Course {
 
 const SubTasks: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]); // All tasks
+  const [deadlineTasks, setDeadlineTasks] = useState<Subtask[]>([]); // Tasks with deadlines
   const [courses, setCourses] = useState<Course[]>([]);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [loading, setLoading] = useState(false); // Loading state
@@ -41,6 +57,9 @@ const SubTasks: React.FC = () => {
     "overdue",
   ]);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [showSubtaskOverlay, setShowSubtaskOverlay] = useState(false);
 
   const [selectedCourse, setSelectedCourse] = useState<string>("");
   const location = useLocation();
@@ -207,6 +226,10 @@ const SubTasks: React.FC = () => {
     }
   };
 
+  const handleAddTasks = () => {
+    console.log("Add Tasks clicked");
+  };
+
   const handleUpdateStatus = async () => {
     // Toast validation for required fields
     if (!selectedTask) {
@@ -276,6 +299,8 @@ const SubTasks: React.FC = () => {
         },
       });
       const data = await response.json();
+      setDeadlineTasks(data.subtasks || []);
+      console.log(data);
       setSelectedTask(data);
     } catch (error) {
       console.error("Error fetching task:", error);
@@ -310,13 +335,27 @@ const SubTasks: React.FC = () => {
     setCurrentPage(1);
   };
 
+  const handleAddTask = () => {
+    setSuccessMessage("Task added successfully!");
+    toast.success("Task added successfully!"); // Added toast notification
+    setTimeout(() => {
+      setSuccessMessage(null);
+    }, 3000);
+    setShowOverlay(false);
+  };
+
+  const handleAddSubTask = () => {
+    setSuccessMessage("Subtask added successfully!");
+    toast.success("Subtask added successfully!"); // Added toast notification
+    setTimeout(() => {
+      setSuccessMessage(null);
+    }, 3000);
+    setShowSubtaskOverlay(false);
+  };
+
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-
-  useEffect(() => {
-    fetchTasksByStatus(activeTab); // Load tasks on component mount
-  }, [activeTab]);
 
   return (
     <div className="tasks-page">
@@ -327,10 +366,40 @@ const SubTasks: React.FC = () => {
       {showDeleteSuccess && (
         <div className="delete-success-message">Task deleted successfully!</div>
       )}
+      {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )}
+      {showOverlay && (
+        <div className="overlay">
+          <div className="overlay-content">
+            <AddTaskForm
+              onAddTask={handleAddTask}
+              onClose={() => setShowOverlay(false)}
+            />
+          </div>
+        </div>
+      )}
+      {showSubtaskOverlay && (
+        <div className="overlay">
+          <div className="overlay-content">
+            <AddSubTaskForm
+              parentTaskId={selectedTask?._id || ""}
+              onAddSubtask={handleAddSubTask}
+              onClose={() => setShowSubtaskOverlay(false)}
+            />
+          </div>
+        </div>
+      )}
       {/* Left section: Task list */}
       <div className="tasks-list">
         <div className="tasks-header">
-          <h1>Tasks</h1>
+          <h1>Deadline</h1>
+          <button
+            className="add-deadline-button"
+            onClick={() => setShowOverlay(true)}
+          >
+            Add Deadline
+          </button>
           {/* <select
             className="course-filter"
             value={selectedCourse}
@@ -464,6 +533,18 @@ const SubTasks: React.FC = () => {
               onClick={handleUpdateStatus}
             >
               Update Status
+            </button>
+            <label htmlFor="status-select">Task List:</label>
+            {selectedTask.subtasks.map((subtask) => (
+              <div key={subtask._id} className="subtask-item">
+                <h3>{subtask.title}</h3>
+              </div>
+            ))}
+            <button
+              className="update-status-button"
+              onClick={() => setShowSubtaskOverlay(true)}
+            >
+              Add Task
             </button>
           </div>
         </div>

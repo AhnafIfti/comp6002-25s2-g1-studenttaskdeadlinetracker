@@ -30,6 +30,7 @@ import "react-toastify/dist/ReactToastify.css";
 import GroupList from "./components/group/UserGroupList";
 import GroupDetail from "./components/group/GroupDetail";
 import GroupForm from "./components/group/GroupForm";
+import { SocketProvider } from "./context/SocketContext";
 
 // Helper component for active link styling
 const SidebarNavLink: React.FC<{ to: string; children: React.ReactNode }> = ({
@@ -131,16 +132,15 @@ const AppContent: React.FC = () => {
               className="add-task-button"
               onClick={() => setShowOverlay(true)}
             >
-              + Add Task
+              Add Deadline
             </button>
             <nav className="sidebar-nav">
               <ul className="sidebar-links">
                 <SidebarNavLink to="/dashboard">Dashboard</SidebarNavLink>
                 <SidebarNavLink to="/courses">Courses</SidebarNavLink>
                 <SidebarNavLink to="/deadline">Deadline</SidebarNavLink>
-                <SidebarNavLink to="/tasks">Tasks</SidebarNavLink>
+                <SidebarNavLink to="/tasks">My Tasks</SidebarNavLink>
                 <SidebarNavLink to="/groups">Groups</SidebarNavLink>
-                <SidebarNavLink to="/group-tasks">Group Tasks</SidebarNavLink>
                 <SidebarNavLink to="/analytics">Analytics</SidebarNavLink>
                 <SidebarNavLink to="/calendar">Calendar</SidebarNavLink>
               </ul>
