@@ -5,6 +5,7 @@ import cors from 'cors';
 import userRoutes from './routes/userRoute'; // Import the user routes
 import courseRoutes from './routes/courseRoute'; // Import the course routes
 import taskRoutes from './routes/taskRoute'; // Import the task routes
+import groupRoutes from "./routes/userGroupRoute";
 
 dotenv.config(); // Load environment variables from .env
 
@@ -25,6 +26,7 @@ mongoose
 app.use('/api/users', userRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/tasks', taskRoutes);
+app.use("/api/groups", groupRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
