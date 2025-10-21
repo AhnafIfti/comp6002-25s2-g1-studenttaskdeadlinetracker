@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify"; // Reintroduce toast for validation
 import "react-toastify/dist/ReactToastify.css";
 import "./Tasks.css";
+import AddTaskForm from "../components/AddTaskForm";
 
 interface Task {
   _id: string;
@@ -41,6 +42,8 @@ const SubTasks: React.FC = () => {
     "overdue",
   ]);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const [selectedCourse, setSelectedCourse] = useState<string>("");
   const location = useLocation();
@@ -310,6 +313,15 @@ const SubTasks: React.FC = () => {
     setCurrentPage(1);
   };
 
+  const handleAddTask = () => {
+    setSuccessMessage("Task added successfully!");
+    toast.success("Task added successfully!"); // Added toast notification
+    setTimeout(() => {
+      setSuccessMessage(null);
+    }, 3000);
+    setShowOverlay(false);
+  };
+
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
@@ -327,13 +339,26 @@ const SubTasks: React.FC = () => {
       {showDeleteSuccess && (
         <div className="delete-success-message">Task deleted successfully!</div>
       )}
+      {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )}
+      {showOverlay && (
+        <div className="overlay">
+          <div className="overlay-content">
+            <AddTaskForm
+              onAddTask={handleAddTask}
+              onClose={() => setShowOverlay(false)}
+            />
+          </div>
+        </div>
+      )}
       {/* Left section: Task list */}
       <div className="tasks-list">
         <div className="tasks-header">
           <h1>Deadline</h1>
           <button
             className="add-deadline-button"
-            // onClick={() => setShowOverlay(true)}
+            onClick={() => setShowOverlay(true)}
           >
             Add Deadline
           </button>
