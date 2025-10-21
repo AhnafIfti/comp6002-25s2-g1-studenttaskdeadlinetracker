@@ -14,8 +14,11 @@ export const authenticate = (req: AuthenticatedRequest, res: Response, next: Nex
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret') as { id: string; email: string };
-    req.user = decoded;
+    const payload = jwt.verify(
+      token,
+      process.env.JWT_SECRET || "your_jwt_secret"
+    ) as { id: string; email: string };
+    req.user = { id: payload.id, email: payload.email };
     next();
   } catch (error) {
     res.status(401).json({ message: 'Invalid or expired token.' });
