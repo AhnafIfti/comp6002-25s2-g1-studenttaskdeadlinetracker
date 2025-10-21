@@ -8,6 +8,23 @@
   min-height: 100vh;
 }
 
+.tasks-page,
+.tasks-page h1,
+.tasks-page h2,
+.tasks-page h3,
+.tasks-page h4,
+.tasks-page h5,
+.tasks-page h6,
+.tasks-page p,
+.tasks-page span,
+.tasks-page label,
+.tasks-page li,
+.tasks-page button,
+.tasks-page input,
+.tasks-page textarea {
+  color: #0c0c0c !important;
+}
+
 /* Left section: Task list */
 .tasks-list {
   flex: 3; /* 60% width */
