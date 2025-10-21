@@ -330,7 +330,13 @@ const SubTasks: React.FC = () => {
       {/* Left section: Task list */}
       <div className="tasks-list">
         <div className="tasks-header">
-          <h1>Tasks</h1>
+          <h1>Deadline</h1>
+          <button
+            className="add-deadline-button"
+            // onClick={() => setShowOverlay(true)}
+          >
+            Add Deadline
+          </button>
           {/* <select
             className="course-filter"
             value={selectedCourse}

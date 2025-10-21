@@ -57,6 +57,11 @@
   color: #ffffff;
 }
 
+.add-deadline-button {
+  border: none;
+  border-radius: 25px;
+}
+
 /* Tasks section */
 .tasks-section {
   display: flex;
