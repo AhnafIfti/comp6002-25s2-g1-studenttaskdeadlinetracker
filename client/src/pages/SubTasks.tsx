@@ -21,7 +21,7 @@ interface Course {
   name: string;
 }
 
-const Tasks: React.FC = () => {
+const SubTasks: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]); // All tasks
   const [courses, setCourses] = useState<Course[]>([]);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
@@ -331,8 +331,7 @@ const Tasks: React.FC = () => {
       <div className="tasks-list">
         <div className="tasks-header">
           <h1>Tasks</h1>
-          {/* Dynamically load course filtering components */}
-          <select
+          {/* <select
             className="course-filter"
             value={selectedCourse}
             onChange={(e) => handleCourseFilterChange(e.target.value)}
@@ -343,34 +342,34 @@ const Tasks: React.FC = () => {
                 {course.code}
               </option>
             ))}
-          </select>
+          </select> */}
         </div>
-        {/* <div className="tasks-tabs">
+        <div className="tasks-tabs">
           <button
-            className={activeTab === 'pending' ? 'active' : ''}
-            onClick={() => handleTabChange('pending')}
+            className={activeTab === "pending" ? "active" : ""}
+            onClick={() => handleTabChange("pending")}
           >
             Pending
           </button>
           <button
-            className={activeTab === 'in-progress' ? 'active' : ''}
-            onClick={() => handleTabChange('in-progress')}
+            className={activeTab === "in-progress" ? "active" : ""}
+            onClick={() => handleTabChange("in-progress")}
           >
             In Progress
           </button>
           <button
-            className={activeTab === 'completed' ? 'active' : ''}
-            onClick={() => handleTabChange('completed')}
+            className={activeTab === "completed" ? "active" : ""}
+            onClick={() => handleTabChange("completed")}
           >
             Completed
           </button>
           <button
-            className={activeTab === 'overdue' ? 'active' : ''}
-            onClick={() => handleTabChange('overdue')}
+            className={activeTab === "overdue" ? "active" : ""}
+            onClick={() => handleTabChange("overdue")}
           >
             Overdue
           </button>
-        </div> */}
+        </div>
         <div className="tasks-section">
           {loading ? (
             <p>Loading...</p>
@@ -596,4 +595,4 @@ const Tasks: React.FC = () => {
   );
 };
 
-export default Tasks;
+export default SubTasks;
